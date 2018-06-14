@@ -1,6 +1,10 @@
 services:
-    bd_ezplatform_graphql.graph.resolver.location:
-        class: BD\EzPlatformGraphQLBundle\GraphQL\Resolver\LocationResolver
+    _defaults:
+        autoconfigure: true
+        autowire: true
+        public: false
+
+    BD\EzPlatformGraphQLBundle\GraphQL\Resolver\LocationResolver:
         arguments:
             - "@ezpublish.api.service.location"
             - "@ezpublish.api.service.content"
@@ -10,8 +14,7 @@ services:
             - { name: overblog_graphql.resolver, alias: "LocationChildren", method: "resolveLocationChildren" }
             - { name: overblog_graphql.resolver, alias: "LocationsByContentId", method: "resolveLocationsByContentId" }
 
-    bd_ezplatform_graphql.graph.resolver.content:
-        class: BD\EzPlatformGraphQLBundle\GraphQL\Resolver\ContentResolver
+    BD\EzPlatformGraphQLBundle\GraphQL\Resolver\ContentResolver:
         arguments:
             - "@ezpublish.api.service.content"
             - "@ezpublish.api.service.search"
@@ -29,8 +32,7 @@ services:
             - { name: overblog_graphql.resolver, alias: "ContentReverseRelations", method: "findContentReverseRelations" }
             - { name: overblog_graphql.resolver, alias: "FieldValueType", method: "resolveFieldValueType" }
 
-    bd_ezplatform_graphql.graph.resolver.user:
-        class: BD\EzPlatformGraphQLBundle\GraphQL\Resolver\UserResolver
+    BD\EzPlatformGraphQLBundle\GraphQL\Resolver\UserResolver:
         arguments:
             - "@ezpublish.api.service.user"
             - "@ezpublish.api.service.location"
@@ -44,8 +46,7 @@ services:
             - { name: overblog_graphql.resolver, alias: "UserGroupSubGroups", method: "resolveUserGroupSubGroups" }
             - { name: overblog_graphql.resolver, alias: "UsersOfGroup", method: "resolveUsersOfGroup" }
 
-    bd_ezplatform_graphql.graph.resolver.content_type:
-        class: BD\EzPlatformGraphQLBundle\GraphQL\Resolver\ContentTypeResolver
+    BD\EzPlatformGraphQLBundle\GraphQL\Resolver\ContentTypeResolver:
         arguments:
             - "@overblog_graphql.type_resolver"
             - "@ezpublish.api.service.content_type"
@@ -55,15 +56,13 @@ services:
             - { name: overblog_graphql.resolver, alias: "ContentTypesFromGroup", method: "resolveContentTypesFromGroup" }
             - { name: overblog_graphql.resolver, alias: "ContentTypeGroupsFromContentType", method: "resolveGroupsFromContentType" }
 
-    bd_ezplatform_graphql.graph.resolver.section:
-        class: BD\EzPlatformGraphQLBundle\GraphQL\Resolver\SectionResolver
+    BD\EzPlatformGraphQLBundle\GraphQL\Resolver\SectionResolver:
         arguments:
             - "@ezpublish.api.service.section"
         tags:
             - { name: overblog_graphql.resolver, alias: "SectionById", method: "resolveSectionById" }
 
-    bd_ezplatform_graphql.graph.resolver.url_alias:
-        class: BD\EzPlatformGraphQLBundle\GraphQL\Resolver\UrlAliasResolver
+    BD\EzPlatformGraphQLBundle\GraphQL\Resolver\UrlAliasResolver:
         arguments:
             - "@overblog_graphql.type_resolver"
             - "@ezpublish.api.service.url_alias"
@@ -71,15 +70,13 @@ services:
             - { name: overblog_graphql.resolver, alias: "UrlAliasType", method: "resolveUrlAliasType" }
             - { name: overblog_graphql.resolver, alias: "LocationUrlAliases", method: "resolveLocationUrlAliases" }
 
-    bd_ezplatform_graphql.graph.resolver.search:
-        class: BD\EzPlatformGraphQLBundle\GraphQL\Resolver\SearchResolver
+    BD\EzPlatformGraphQLBundle\GraphQL\Resolver\SearchResolver:
         arguments:
             - "@ezpublish.api.service.search"
         tags:
             - { name: overblog_graphql.resolver, alias: "SearchContent", method: "searchContent" }
 
-    bd_ezplatform_graphql.graph.resolver.field_value.richtext:
-        class: BD\EzPlatformGraphQLBundle\GraphQL\Resolver\RichTextResolver
+    BD\EzPlatformGraphQLBundle\GraphQL\Resolver\RichTextResolver:
         arguments:
             - "@ezpublish.fieldType.ezrichtext.converter.output.xhtml5"
             - "@ezpublish.fieldType.ezrichtext.converter.edit.xhtml5"
@@ -87,8 +84,7 @@ services:
             - { name: overblog_graphql.resolver, alias: "RichTextXmlToHtml5", method: "xmlToHtml5" }
             - { name: overblog_graphql.resolver, alias: "RichTextXmlToHtml5Edit", method: "xmlToHtml5Edit" }
 
-    bd_ezplatform_graphql.graph.resolver.field_value.image:
-        class: BD\EzPlatformGraphQLBundle\GraphQL\Resolver\ImageFieldResolver
+    BD\EzPlatformGraphQLBundle\GraphQL\Resolver\ImageFieldResolver:
         arguments:
             - "@ezpublish.fieldType.ezimage.variation_service"
             - "@ezpublish.api.service.content"
@@ -96,10 +92,18 @@ services:
         tags:
             - { name: overblog_graphql.resolver, alias: "ImageVariation", method: "resolveImageVariation" }
 
-    bd_ezplatform_graphql.graph.mutation.section:
-        class: BD\EzPlatformGraphQLBundle\GraphQL\Mutation\SectionMutation
+    BD\EzPlatformGraphQLBundle\GraphQL\Mutation\SectionMutation:
         arguments:
             - "@ezpublish.api.service.section"
         tags:
             - { name: "overblog_graphql.mutation", alias: "CreateSection", method: "createSection" }
             - { name: "overblog_graphql.mutation", alias: "DeleteSection", method: "deleteSection" }
+
+    BD\EzPlatformGraphQLBundle\GraphQL\Relay\NodeResolver:
+        tags:
+            - { name: overblog_graphql.resolver, alias: "node", method: "resolveNode" }
+            - { name: overblog_graphql.resolver, alias: "node_type", method: "resolveType" }
+
+    BD\EzPlatformGraphQLBundle\GraphQL\Relay\SearchResolver:
+        tags:
+            - {name: overblog_graphql.resolver, alias: "SearchContentConnection", method: "searchContent"}

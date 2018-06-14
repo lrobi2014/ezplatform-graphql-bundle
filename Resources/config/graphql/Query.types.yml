@@ -15,7 +15,7 @@ Query:
                 args:
                     id:
                         description: "Resolves using the unique Content id."
-                        type: "Int"
+                        type: "ID!"
                     remoteId:
                         description: "Resolves using the unique Content remote id."
                         type: "String"
@@ -74,6 +74,34 @@ Query:
                     query:
                         type: "ContentSearchQuery!"
                 resolve: "@=resolver('SearchContent', [args])"
+            searchContentConnection:
+                type: ContentConnection
+                args:
+                    query:
+                        type: "ContentSearchQuery!"
+                argsBuilder: "Relay::Connection"
+                resolve: "@=resolver('SearchContentConnection', [args])"
+            node:
+                builder: Relay::Node
+                builderConfig:
+                    nodeInterfaceType: Node
+                    idFetcher: '@=resolver("node", [value])'
+
+ContentConnection:
+    type: relay-connection
+    config:
+        nodeType: Content
+        connectionFields:
+            sliceSize:
+                type: "Int!"
+#        edgeFields:
+#            contentType:
+#                type: String
+#                resolve: "Yesterday"
+#        connectionFields:
+#            totalCount:
+#                type: Int
+#                resolve: '@=resolver("connection")'
 
 ContentSearchQuery:
     type: "input-object"
