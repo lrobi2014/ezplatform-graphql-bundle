@@ -14,4 +14,29 @@ DomainContent:
             _allLocations:
                 description: "All the content's locations"
                 type: "[Location]"
+            # Should be limited to containers
+
         resolveType: "@=resolver('DomainContentType', [value])"
+
+DomainContainerContent:
+    type: "interface"
+    config:
+        fields:
+            _children:
+                description: "Children of the content's locations"
+                type: "[DomainContent]"
+                resolve: "@=resolver('DomainContentChildren', [value, args])"
+                args:
+                    mainLocationOnly:
+                        type: Boolean
+                    recursive:
+                        type: Boolean
+            _childrenByType:
+                description: "Children of the content's locations, grouped by type"
+                type: "[Domain]"
+                resolve: "@=[value, args]"
+                args:
+                    mainLocationOnly:
+                        type: Boolean
+                    recursive:
+                        type: Boolean

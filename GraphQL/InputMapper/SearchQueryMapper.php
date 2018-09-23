@@ -21,6 +21,10 @@ class SearchQueryMapper
         $query = new Query();
         $criteria = [];
 
+        if (isset($inputArray['ParentLocationId'])) {
+            $criteria[] = new Query\Criterion\ParentLocationId($inputArray['ParentLocationId']);
+        }
+
         if (isset($inputArray['ContentTypeIdentifier'])) {
             $criteria[] = new Query\Criterion\ContentTypeIdentifier($inputArray['ContentTypeIdentifier']);
         }

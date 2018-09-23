@@ -146,4 +146,20 @@ class DomainContentResolver
 
         return $converter->denormalize($contentType->identifier) . 'Content';
     }
+
+    public function resolveDomainContentChildren(ContentInfo $contentInfo, $args = [])
+    {
+        $query = new Query([
+            'filter' => new Query\Criterion\LogicalAnd([
+                new Query\Criterion\ParentLocationId($contentInfo->mainLocationId)
+            ])
+        ]);
+
+        return array_map(
+            function (SearchHit $searchHit) {
+                return $searchHit->valueObject;
+            },
+            $this->searchService->findContentInfo($query)->searchHits
+        );
+    }
 }

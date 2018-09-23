@@ -59,6 +59,7 @@ services:
             - { name: overblog_graphql.resolver, alias: "DomainContentItemsByTypeIdentifier", method: "resolveDomainContentItems" }
             - { name: overblog_graphql.resolver, alias: "DomainFieldValue", method: "resolveDomainFieldValue" }
             - { name: overblog_graphql.resolver, alias: "DomainContentType", method: "resolveDomainContentType" }
+            - { name: overblog_graphql.resolver, alias: "DomainContentChildren", method: "resolveDomainContentChildren" }
 
     bd_ezplatform_graphql.graph.resolver.user:
         class: BD\EzPlatformGraphQLBundle\GraphQL\Resolver\UserResolver
