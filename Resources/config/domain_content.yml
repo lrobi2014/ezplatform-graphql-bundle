@@ -11,6 +11,7 @@ services:
             - [addWorker, ['@BD\EzPlatformGraphQLBundle\DomainContent\SchemaWorker\ContentType\DefineDomainContent']]
             - [addWorker, ['@BD\EzPlatformGraphQLBundle\DomainContent\SchemaWorker\ContentType\AddDomainContentToDomainGroup']]
             - [addWorker, ['@BD\EzPlatformGraphQLBundle\DomainContent\SchemaWorker\FieldDefinition\AddFieldDefinitionToDomainContent']]
+            - [addWorker, ['@BD\EzPlatformGraphQLBundle\DomainContent\SchemaWorker\ContentType\AddContentTypeToContentTypeIdentifierList']]
 
     BD\EzPlatformGraphQLBundle\DomainContent\NameHelper: ~
 
@@ -28,3 +29,5 @@ services:
     BD\EzPlatformGraphQLBundle\DomainContent\SchemaWorker\ContentTypeGroup\AddDomainGroupToDomain: ~
 
     BD\EzPlatformGraphQLBundle\DomainContent\SchemaWorker\FieldDefinition\AddFieldDefinitionToDomainContent: ~
+
+    BD\EzPlatformGraphQLBundle\DomainContent\SchemaWorker\ContentType\AddContentTypeToContentTypeIdentifierList: ~

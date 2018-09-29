@@ -3,7 +3,7 @@ ContentSearchQuery:
     config:
         fields:
             ContentTypeIdentifier:
-                type: "[String]"
+                type: "[ContentTypeIdentifier]"
                 description: "Content type identifier filter"
             ContentTypeId:
                 type: "[String]"
@@ -82,3 +82,15 @@ DateCriterionOperator:
         values:
             before: {}
             after: {}
+
+QueryType:
+    type: "object"
+    config:
+        fields:
+            latestContent:
+                type: "[Content]"
+                args:
+                    contentType:
+                        type: "[String]"
+                        description: "Identifiers of content types to filter on."
+                resolve: "@=resolver('SearchContentWithQueryType', ['latestContent', args])"
